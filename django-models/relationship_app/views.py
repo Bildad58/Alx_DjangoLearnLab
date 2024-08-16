@@ -26,8 +26,8 @@ def LibraryDetailView(self, request):
     return render(request, 'relationship_app/library_detail.html', context)
 
 def register(request):
-    form = UserCreationForm
-#     template_name = 'relationship_app/registration.html'
+    form = UserCreationForm()
+    template_name = 'relationship_app/register.html'
     return render(request, "register.html", {"form":form})
 
 
