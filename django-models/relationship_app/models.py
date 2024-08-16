@@ -32,9 +32,9 @@ class Librarian(models.Model):
 
 class UserProfile(models.Model):
     choices = '['
-    ADMIN = ('Admin', 'Admin'),
-    LIBRARIAN = ('Librarian', 'Librarian'),
-    MEMBER = ('Member', 'Member'),
+    ('Admin', 'Admin'),
+    ('Librarian', 'Librarian'),
+    ('Member', 'Member'),
     ']'
 
     User = models.OneToOneField(User, on_delete=models.CASCADE)
