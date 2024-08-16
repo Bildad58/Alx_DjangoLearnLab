@@ -31,14 +31,14 @@ class Librarian(models.Model):
 # Create your models here.
 
 class UserProfile(models.Model):
-    choices = '['
-    ('Admin', 'Admin'),
-    ('Librarian', 'Librarian'),
-    ('Member', 'Member'),
-    ']'
-
+    CHOICES = [
+        ('Admin', 'Admin'),
+        ('Librarian', 'Librarian'),
+        ('Member', 'Member'),
+    ]
+    
     User = models.OneToOneField(User, on_delete=models.CASCADE)
-    role = models.CharField(max_length=50, choice= choices)
+    role = models.CharField(max_length=50, choice= CHOICES)
 
     def __str__(self):
         return self.user.username
