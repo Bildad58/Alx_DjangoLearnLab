@@ -1,15 +1,20 @@
 from django.shortcuts import render
-from django.views.generic.detail import DetailView 
-from .models import Library
 from .models import Book
 
-def list_books(request):
-    book = Book.objects.all()
-    context = {
-        'book': book
-    }
+from django.shortcuts import render
+from .models import Book
 
-    return render(request, 'relationship_app/list_books.html', context)
+def book_list(request):
+      books = Book.objects.all()  # Fetch all book instances from the database
+      context = {'book_list': books}  # Create a context dictionary with book list
+      return render(request, 'relationship_app/book_list.html', context)
+# def list_books(request):
+#     book = Book.objects.all()
+#     context = {
+#         'book': book
+#     }
+
+#     return render(request, 'relationship_app/list_books.html', context)
 
 
 def LibraryDetailView(self, request):
