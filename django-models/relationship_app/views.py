@@ -4,7 +4,7 @@ from .models import Library
 from .models import Book
 
 def list_books(request):
-    book = Book.object.all()
+    book = Book.objects.all()
     context = {
         'book': book
     }
