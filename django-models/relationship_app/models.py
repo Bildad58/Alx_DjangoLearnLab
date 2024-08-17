@@ -4,13 +4,19 @@ from django.contrib.auth.models import User
 
 class Author(models.Model):
     name = models.CharField(max_length=255)
-
     def __str__(self):
         return self.name
 
 class Book(models.Model):
     title = models.CharField(max_length=255)
     author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name='books')
+
+    class Meta(models.Model):
+        permissions = [
+            ('Can add book', 'can_add_book')
+            ('Can change book', 'can_add_book')
+            ('can delete book', 'can_delete_book')
+        ]
 
     def __str__(self):
         return self.title

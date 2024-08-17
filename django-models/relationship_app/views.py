@@ -62,4 +62,35 @@ def librarian_view(request):
 @user_passes_test(is_member)
 def member_view(request):
     return render(request, 'relationship_app/member_view.html')
+
+
+from django.contrib.auth.decorators import permission_required
+from django.shortcuts import render, get_object_or_404, redirect
+
+from .models import Meta
+
+
+@permission_required('relationship_app.can_add_book')
+def add_book(request):
+    if request.method == 'POST':
+        form = Meta(request.POSt)
+        if form.is_valid():
+            form.save()
+            return redirect('book_list')
+    
+@permission_required('relationship_app.can_change_book')
+def change_book(request, book_id):
+    book = get_object_or_404(Book, id=book_id)
+    if request.method == "POST":
+        form = Meta(request.POST, instance=book)
+        if form.is_valid():
+            form.save()
+            
+        
+@permission_required('relationship_app.can_delete_book')
+def delete_book(request, book_id):
+    book = get_object_or_404(Book, id=book_id)
+    if request.method == "POST":
+        book.delete()
+
     
