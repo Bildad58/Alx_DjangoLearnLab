@@ -13,7 +13,7 @@ class CustomUser(AbstractUser):
     date_of_birth = models.DateField(null=False)
     profile_photo = models.ImageField(blank=False)
 
-class CustomUser(BaseUserManager):
+class CustomUserManager(BaseUserManager):
     def create_user(self, email, password):
         if not email:
             raise ValueError("user must have email")
