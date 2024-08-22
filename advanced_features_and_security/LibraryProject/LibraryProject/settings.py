@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-uy-!q11bpl_4*))h1ac7y_g52hy=r%8fx)sbo-jl_n3ml#do@n'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -50,6 +50,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'SECURE_BROWSER_XSS_FILTER', 
+    'X_FRAME_OPTIONS',
+    'SECURE_CONTENT_TYPE_NOSNIFF',
 ]
 
 ROOT_URLCONF = 'LibraryProject.urls'
@@ -125,3 +128,7 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'bookshelf.CustomUser'
+
+
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
