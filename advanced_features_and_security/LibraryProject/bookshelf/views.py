@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import permission_required
 from django.http import HttpResponse
+from .forms import ExampleForm
 
 
 @permission_required('bookshelf.can_edit', raise_exception=True)
