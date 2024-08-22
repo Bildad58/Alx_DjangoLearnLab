@@ -30,6 +30,20 @@ class CustomUserManager(BaseUserManager):
         user.is_superuser = True
         user.save(using=self._db)
         return user
+    
+class Student(models.Model):
+    name = models.CharField(max_length=100, null=False)
+    age = models.IntegerField(blank=False)
+    date_of_admission = models.DateField(blank=False)
+
+    class meta():
+        Permissions = [
+            ('can_view', 'Can view'),
+            ('can_create', 'Can create'),
+            ('can_edit', 'Can edit'),
+            ('can_delete', 'Can delete'),
+        ]
+
 
 
 
