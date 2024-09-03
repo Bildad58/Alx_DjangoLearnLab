@@ -10,6 +10,11 @@ class BookViewSet(viewsets.ViewSet):
     serializer_class = BookSerializer
     permission_classes = [IsAuthenticated]
 
-class BookList (rest_framework.generics.ListAPIView):
+class BookViewSet(rest_framework.viewsets.ModelViewSet):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+
+
+class BookList(rest_framework.generics.ListAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
