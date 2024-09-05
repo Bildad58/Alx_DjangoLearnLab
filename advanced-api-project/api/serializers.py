@@ -4,7 +4,7 @@ from datetime import datetime
 
 
 # The Bookserializer is responsible for converting the complex codes to easily readily format that the end user can use with ease
-class BookSerializer(serializers.Modelserializer):
+class BookSerializer(serializers.ModelSerializer):
     model = Book
     fields = '__all__'
 
@@ -16,7 +16,7 @@ class BookSerializer(serializers.Modelserializer):
         return value
 
 # The Author serializer is responsible for converting complex code into easy formatted readily output to the end user
-class AuthorSerializer(serializers.Modelserializer):
+class AuthorSerializer(serializers.ModelSerializer):
     books = BookSerializer(many=True, read_only=True)
 
     model = Author
