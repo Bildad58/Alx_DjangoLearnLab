@@ -20,4 +20,4 @@ class AuthorSerializer(serializers.ModelSerializer):
     books = BookSerializer(many=True, read_only=True)
 
     model = Author
-    fields = ['name']
+    fields = ['name',]
