@@ -2,7 +2,7 @@ from django.shortcuts import render
 from .models import Book, Author
 from rest_framework import generics, mixins
 from .serializers import BookSerializer
-from rest_framework.permissions import IsAuthenticatedOrReadOnly,IsAuthenticated
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 
