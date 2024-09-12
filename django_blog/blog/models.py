@@ -6,9 +6,12 @@ class Post(models.Model):
     content = models.TextField()
     published_date = models.DateField(auto_now_add=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts' )
-# Create a model Post in blog/models.py with the following fields:
-# title: models.CharField(max_length=200)
-# content: models.TextField()
-# published_date: models.DateTimeField(auto_now_add=True)
-# author: models.ForeignKey to Django’s User model, with a relation to handle multiple posts by a single author.
-# Run the migrations to create the model in the database: bash python manage.py makemigrations blog python manage.py migrate
+    
+
+
+class Comment(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments')
+    content = models.TextField()
+    created_date = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)

@@ -102,3 +102,36 @@ class PostDeleteView(DeleteView):
         post = Post.objects.get(pk=pk)
         post.delete()
         return redirect('post_list')
+
+from .models import Comment
+class CommentCreateView(LoginRequiredMixin, CreateView):
+    model = Comment
+    template_name = 'blog/comment_form.html'
+    fields = ['content']
+    success_url = reverse_lazy('post-list')
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        form.instance.post = Post.objects.get(pk=self.kwargs['pk'])
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('post-detail', kwargs={'pk': self.object.post.pk})
+    
+class CommentUpdateView(LoginRequiredMixin, UpdateView):
+    model = Comment
+    template_name = 'blog/comment_form.html'
+    fields = ['content']
+    success_url = reverse_lazy('post-list')
+
+    def get_success_url(self):
+        return reverse_lazy('post-detail', kwargs={'pk': self.object.post.pk})
+
+   
+    def test_func(self):
+        comment = self.get_object()
+        return self.request.user == comment.author
+
+class CommentDeleteView(LoginRequiredMixin, DeleteView):
+    model = Comment
+    template_name = 'blog/comment_delete.html'
