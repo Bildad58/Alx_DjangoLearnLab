@@ -1,10 +1,14 @@
 from django.shortcuts import render
 from .serializers import UserSerializer
-from .models import Customuser  
+from .models import CustomUser  
 from rest_framework.response import Response
-from rest_framework import generics, permissions
+from rest_framework import generics, permissions,filters
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
+from rest_framework import permissions, viewsets
+from .serializers import PostSerializer, CommentSerializer
+from .models import Post, Comment
+
 
 
 class RegisterView(generics.CreateAPIView):
@@ -46,3 +50,20 @@ class UserProfileView(generics.RetrieveAPIView):
 
     
 
+class PostViewSet(viewsets.ModelViewSet):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['title', 'content']    
+
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)   
+
+class CommentViewSet(viewsets.ModelViewSet):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)

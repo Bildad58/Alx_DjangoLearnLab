@@ -1,9 +1,10 @@
 from rest_framework import serializers
-from .models import Customuser
+from .models import CustomUser
 from rest_framework.authtoken.models import Token
 from django.contrib.auth import get_user_model
 from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth import authenticate
+from .models import Post, Comment
 
 
 User = get_user_model().objects.create_user
@@ -15,7 +16,7 @@ class UserSerializer(serializers.ModelSerializer):
     serializers.CharField() 
 
     class Meta:
-        model = Customuser
+        model = CustomUser
         fields = ['id', 'email', 'username','profile_picture', 'bio',  'password','password2']
         extra_kwargs =  {'password': {'write_only': True}}
 
@@ -28,7 +29,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         validated_data.pop('password2')
-        user = Customuser.objects.create_user(
+        user = CustomUser.objects.create_user(
             username = validated_data['username'],
             password= validated_data['password'],
             bio = validated_data['bio'],
@@ -38,6 +39,17 @@ class UserSerializer(serializers.ModelSerializer):
         Token.objects.create(user=user)
         return user
 
-    
-    
+
+class CommentSerializer(serializers.ModelSerializer):
+    author = serializers.ReadOnlyField(source='author.username')
+    class meta:
+        model = Comment
+        fields = '__all'
+            
+class PostSerializer(serializers.ModelSerializer):
+    author = serializers.ReadOnlyField(source='author.username')
+    comments = CommentSerializer(many=True, read_only=True)
+    class Meta:
+        model = Post
+        fields = '__all__'
     
