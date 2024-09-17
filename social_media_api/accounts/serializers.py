@@ -4,7 +4,6 @@ from rest_framework.authtoken.models import Token
 from django.contrib.auth import get_user_model
 from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth import authenticate
-from .models import Post, Comment
 
 
 User = get_user_model().objects.create_user
@@ -39,17 +38,3 @@ class UserSerializer(serializers.ModelSerializer):
         Token.objects.create(user=user)
         return user
 
-
-class CommentSerializer(serializers.ModelSerializer):
-    author = serializers.ReadOnlyField(source='author.username')
-    class meta:
-        model = Comment
-        fields = '__all'
-            
-class PostSerializer(serializers.ModelSerializer):
-    author = serializers.ReadOnlyField(source='author.username')
-    comments = CommentSerializer(many=True, read_only=True)
-    class Meta:
-        model = Post
-        fields = '__all__'
-    
