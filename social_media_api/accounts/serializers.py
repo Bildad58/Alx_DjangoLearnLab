@@ -6,7 +6,7 @@ from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth import authenticate
 
 
-User = get_user_model()
+User = get_user_model().objects.create_user
 
 class UserSerializer(serializers.ModelSerializer):
 
