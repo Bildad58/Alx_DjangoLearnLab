@@ -11,7 +11,8 @@ User = get_user_model().objects.create_user
 class UserSerializer(serializers.ModelSerializer):
 
     password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
-    password2 = serializers.CharField(write_only=True, required=True)    
+    password2 = serializers.CharField(write_only=True, required=True)   
+    serializers.Charfield() 
 
     class Meta:
         model = Customuser
