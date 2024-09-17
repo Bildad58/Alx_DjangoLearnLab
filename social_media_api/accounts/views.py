@@ -11,6 +11,14 @@ class RegisterView(generics.CreateAPIView):
     serializer_class = UserSerializer
     permission_classes = [permissions.AllowAny]
 
+    def post(self, request):
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            user = serializer.save()
+            token = user.auth_token.key  
+            return Response({'token': token})
+        return Response(serializer.errors)
+
 
 class LoginView(ObtainAuthToken):
     serializer_class = UserSerializer
