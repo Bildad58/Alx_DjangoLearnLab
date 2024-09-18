@@ -59,6 +59,8 @@ class FollowUserView(generics.GenericAPIView):
         request.user.following.add(user_to_follow)
         return Response({"message": f"You are now following {user_to_follow.username}."}, status=status.HTTP_200_OK)
 
+CustomUser.objects.all()
+
 class UnfollowUserView(generics.GenericAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
