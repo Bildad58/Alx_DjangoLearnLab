@@ -4,7 +4,7 @@ from .serializers import PostSerializer, CommentSerializer
 from .models import Post, Comment
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
-from notifications.models import notification
+from notifications.models import Notification
 from .models import Post, Comment, Like
 from django.contrib.contenttypes.models import ContentType
 
@@ -56,7 +56,7 @@ class LikePostView(generics.GenericAPIView):
             return Response({"message": "You have already liked this post"}, status=status.HTTP_400_BAD_REQUEST)
 
         # Create notification
-        notification.objects.create(
+        Notification.objects.create(
             recipient=post.user,  # Assuming Post has a ForeignKey to the user who created it
             actor=request.user,
             verb='liked your post',

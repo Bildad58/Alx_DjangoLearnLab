@@ -5,7 +5,7 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 
 
 
-class notification(models.Model):
+class Notification(models.Model):
     recipient = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='notifications')  
     actor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='notifications_actor') 
     verb = models.CharField(max_length=255) 
