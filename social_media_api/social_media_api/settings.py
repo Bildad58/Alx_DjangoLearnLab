@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-a0%)y1yqz6=gk72=d5*90y^^u96u*s5#4ln@%r*_&%ll0*z0c8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'posts',
     'rest_framework',
     'rest_framework.authtoken',
-    'notifications',
+    'notifications',            
    
 ]
 AUTH_USER_MODEL = 'accounts.CustomUser'  
@@ -62,6 +62,7 @@ ROOT_URLCONF = 'social_media_api.urls'
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
 }
 
